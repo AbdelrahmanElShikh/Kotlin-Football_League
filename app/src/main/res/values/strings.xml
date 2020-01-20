@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Football-League-kotlin</string>
+    <string name="no_teams">No Teams Available .. please check internet connection</string>
+    <string name="retry">Retry</string>
+</resources>
