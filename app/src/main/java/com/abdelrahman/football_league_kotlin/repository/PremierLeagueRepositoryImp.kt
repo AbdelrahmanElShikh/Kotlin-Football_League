@@ -10,12 +10,12 @@ import com.abdelrahman.football_league_kotlin.room.TeamDao
 /**
 @author  Abdel-Rahman El-Shikh on 20-Jan-20.
  */
-class PremierLeagueRepositoryImp(private val apiService: ApiService) :
+class PremierLeagueRepositoryImp(private val apiService: ApiService,private val teamDao:TeamDao) :
     PremierLeagueRepository {
-    override suspend fun getPremierLeagueTeams(teamDao: TeamDao): ApiResponse<List<Team>> {
+    override suspend fun getPremierLeagueTeams(): ApiResponse<List<Team>> {
         return try {
             val result = teamDao.getTeams()
-            if (result.isEmpty()) return loadTeamsFromApi(teamDao)
+            if (result.isEmpty()) return loadTeamsFromApi()
             ApiResponse.Success(result)
         } catch (ex: Exception) {
             Log.e("PremierLeagueRepoImp1", ex.localizedMessage!!)
@@ -23,7 +23,7 @@ class PremierLeagueRepositoryImp(private val apiService: ApiService) :
         }
     }
 
-    private suspend fun loadTeamsFromApi(teamDao: TeamDao): ApiResponse<List<Team>> {
+    private suspend fun loadTeamsFromApi(): ApiResponse<List<Team>> {
         return try {
             val result = apiService.getPremierLeagueTeams().await()
             teamDao.insertTeams(result.teams)
