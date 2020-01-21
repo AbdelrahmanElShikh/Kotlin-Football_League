@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.abdelrahman.football_league_kotlin.model.Squad
 import com.abdelrahman.football_league_kotlin.model.Team
 
 
@@ -17,4 +18,10 @@ interface TeamDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTeams(teams: List<Team>)
+
+    @Query("UPDATE teams SET squad =:squads WHERE id =:givenId")
+    fun updateSquad(givenId:Int,squads: List<Squad>)
+
+    @Query("SELECT * FROM teams WHERE id=:givenId")
+    fun getTeamById(givenId: Int):Team
 }

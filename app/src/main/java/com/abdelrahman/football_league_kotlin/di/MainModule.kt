@@ -3,7 +3,8 @@ package com.abdelrahman.football_league_kotlin.di
 import com.abdelrahman.football_league_kotlin.repository.PremierLeagueRepository
 import com.abdelrahman.football_league_kotlin.repository.PremierLeagueRepositoryImp
 import com.abdelrahman.football_league_kotlin.room.TeamRoomDatabase
-import com.abdelrahman.football_league_kotlin.ui.destinations.TeamsViewModel
+import com.abdelrahman.football_league_kotlin.ui.destinations.teamDetails.TeamDetailsViewModel
+import com.abdelrahman.football_league_kotlin.ui.destinations.teams.TeamsViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -16,7 +17,19 @@ val mainModule = module {
         TeamRoomDatabase.getDatabase(get())
     }
     single { get<TeamRoomDatabase>().teamDao() }
-    factory<PremierLeagueRepository> { PremierLeagueRepositoryImp(apiService = get(),teamDao = get()) }
-    viewModel { TeamsViewModel(premierLeagueRepository = get()) }
+    factory<PremierLeagueRepository> {
+        PremierLeagueRepositoryImp(
+            apiService = get(),
+            teamDao = get()
+        )
+    }
+    viewModel {
+        TeamsViewModel(
+            premierLeagueRepository = get()
+        )
+    }
+    viewModel {
+        TeamDetailsViewModel(premierLeagueRepository = get())
+    }
 
 }

@@ -36,7 +36,17 @@ class PremierLeagueRepositoryImp(private val apiService: ApiService,private val 
 
     override suspend fun getTeamById(teamId: Int): ApiResponse<Team> {
         return try {
+            val result = teamDao.getTeamById(teamId)
+            if(result.squad.isEmpty()) return getTeamByIdFromApi(teamId)
+            ApiResponse.Success(result)
+        }catch (ex: Exception){
+            ApiResponse.Error(ex)
+        }
+    }
+    private suspend fun getTeamByIdFromApi(teamId: Int):ApiResponse<Team>{
+        return try {
             val result = apiService.getTeamById(teamId = teamId).await()
+            teamDao.updateSquad(teamId,result.squad)
             ApiResponse.Success(result)
         } catch (ex: Exception) {
             ApiResponse.Error(ex)

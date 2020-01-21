@@ -11,7 +11,7 @@ import kotlin.properties.Delegates
 /**
 @author  Abdel-Rahman El-Shikh on 20-Jan-20.
  */
-class TeamAdapter : RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
+class TeamAdapter(var listener:OnTeamClick) : RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
 
     private var teams: List<Team> by Delegates.observable(emptyList()) { _, _, _ -> notifyDataSetChanged() }
 
@@ -33,5 +33,19 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
         teams = newTeams
     }
 
-    inner class ViewHolder(var binding: TeamItemBinding) : RecyclerView.ViewHolder(binding.root)
+    interface OnTeamClick{
+        fun onTeamClick(teamId: Int)
+        fun onWebsiteClick(website: String?)
+    }
+
+    inner class ViewHolder(var binding: TeamItemBinding) : RecyclerView.ViewHolder(binding.root){
+        init {
+            binding.root.setOnClickListener{
+                listener.onTeamClick(teams[adapterPosition].id)
+            }
+            binding.txtWebsite.setOnClickListener{
+                listener.onWebsiteClick(teams[adapterPosition].website)
+            }
+        }
+    }
 }

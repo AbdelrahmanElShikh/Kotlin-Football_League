@@ -1,4 +1,4 @@
-package com.abdelrahman.football_league_kotlin.ui.destinations
+package com.abdelrahman.football_league_kotlin.ui.destinations.teams
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,8 +21,6 @@ class TeamsViewModel(private val premierLeagueRepository: PremierLeagueRepositor
     val showLoading = MutableLiveData<Boolean>()
     val premierLeagueTeams = MutableLiveData<List<Team>>()
     val showError = MutableLiveData<String>()
-//    val teamRoomDatabase = TeamRoomDatabase.getDatabase(application)
-//    val teamDao = teamRoomDatabase.teamDao()
 
     fun loadPremierLeagueTeams(){
         showLoading.value = true
