@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.abdelrahman.football_league_kotlin.R
 import com.abdelrahman.football_league_kotlin.adapter.SquadAdapter
 import com.abdelrahman.football_league_kotlin.databinding.TeamDetailsBinding
-import kotlinx.android.synthetic.main.premier_league_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -38,6 +37,7 @@ class TeamDetailsFragment :Fragment(){
             adapter = squadAdapter
             isNestedScrollingEnabled = false
         }
+        binding.btnRetry.setOnClickListener{loadTeamById(teamId)}
         initViewModel()
         return binding.root
     }
@@ -46,13 +46,21 @@ class TeamDetailsFragment :Fragment(){
         viewModel.team.observe(viewLifecycleOwner, Observer {team ->
             binding.team = team
             squadAdapter.updateSquade(team.squad)
+            binding.txtSquad.visibility = View.VISIBLE
+            binding.layoutError.visibility = View.GONE
+
         })
         viewModel.showLoading.observe(viewLifecycleOwner, Observer { showLoading ->
-            progressBar.visibility = if(showLoading) View.VISIBLE else View.GONE
+            binding.progressBar.visibility = if(showLoading) View.VISIBLE else View.GONE
         })
         viewModel.showError.observe(viewLifecycleOwner, Observer { showError ->
             Toast.makeText(activity,showError, Toast.LENGTH_SHORT).show()
+            binding.layoutError.visibility = View.VISIBLE
+            binding.txtSquad.visibility = View.GONE
         })
+        loadTeamById(teamId)
+    }
+    private fun loadTeamById(teamId:Int){
         viewModel.loadTeamById(teamId)
     }
 }

@@ -39,19 +39,25 @@ class TeamsFragment: Fragment() , TeamAdapter.OnTeamClick{
             layoutManager = LinearLayoutManager(context)
             adapter = teamAdapter
         }
+        btn_retry.setOnClickListener{loadTeams()}
         initViewModel()
     }
 
     private fun initViewModel() {
         viewModel.premierLeagueTeams.observe(viewLifecycleOwner, Observer { teams ->
             teamAdapter.updateTeams(teams)
+            layout_error.visibility = View.GONE
         })
         viewModel.showLoading.observe(viewLifecycleOwner, Observer { showLoading ->
             progressBar.visibility = if(showLoading) View.VISIBLE else View.GONE
         })
         viewModel.showError.observe(viewLifecycleOwner, Observer { showError ->
             Toast.makeText(activity,showError,Toast.LENGTH_SHORT).show()
+            layout_error.visibility = View.VISIBLE
         })
+        loadTeams()
+    }
+    private fun loadTeams(){
         viewModel.loadPremierLeagueTeams()
     }
 
