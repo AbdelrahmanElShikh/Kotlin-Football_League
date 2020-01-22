@@ -35,7 +35,6 @@ class TeamDetailsFragment :Fragment(){
         binding.recyclerViewSquad.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = squadAdapter
-            isNestedScrollingEnabled = false
         }
         binding.btnRetry.setOnClickListener{loadTeamById(teamId)}
         initViewModel()
