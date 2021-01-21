@@ -2,4 +2,6 @@
     <string name="app_name">Football-League-kotlin</string>
     <string name="no_teams">No Teams Available .. please check internet connection</string>
     <string name="retry">Retry</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

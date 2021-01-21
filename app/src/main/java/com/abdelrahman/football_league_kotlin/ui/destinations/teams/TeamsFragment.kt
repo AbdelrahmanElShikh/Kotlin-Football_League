@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionInflater
 import com.abdelrahman.football_league_kotlin.R
 import com.abdelrahman.football_league_kotlin.adapter.TeamAdapter
 import kotlinx.android.synthetic.main.premier_league_fragment.*
@@ -23,6 +24,13 @@ class TeamsFragment: Fragment() , TeamAdapter.OnTeamClick{
 
     private val viewModel by viewModel<TeamsViewModel>()
     private lateinit var teamAdapter : TeamAdapter
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(context)
+            .inflateTransition(android.R.transition.move).setDuration(1000)
+    }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

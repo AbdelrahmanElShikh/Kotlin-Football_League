@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/teamsFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/teamsFragment"
@@ -22,5 +22,15 @@
         <argument
             android:name="teamId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.abdelrahman.football_league_kotlin.ui.destinations.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splash_to_teams"
+            app:destination="@id/teamsFragment"
+            />
     </fragment>
 </navigation>
