@@ -16,15 +16,24 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 const val BASE_URL = "https://api.football-data.org/v2/"
 val apiModule = module {
-    single {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(createHttpClient())
-            .build()
-            .create(ApiService::class.java)
-    }
+
+
+    single { provideApiService() }
+
+}
+
+fun provideApiService() : ApiService {
+    return Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(
+            GsonConverterFactory.create(
+                GsonBuilder().setLenient().create()
+            )
+        )
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .client(createHttpClient())
+        .build()
+        .create(ApiService::class.java)
 }
 
 fun createHttpClient(): OkHttpClient {

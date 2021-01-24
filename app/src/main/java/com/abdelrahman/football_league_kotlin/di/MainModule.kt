@@ -5,8 +5,10 @@ import com.abdelrahman.football_league_kotlin.repository.PremierLeagueRepository
 import com.abdelrahman.football_league_kotlin.room.TeamRoomDatabase
 import com.abdelrahman.football_league_kotlin.ui.destinations.teamDetails.TeamDetailsViewModel
 import com.abdelrahman.football_league_kotlin.ui.destinations.teams.TeamsViewModel
+import com.abdelrahman.football_league_kotlin.widget.TeamWidgetService
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import kotlin.math.sin
 
 
 /**
